@@ -39,15 +39,23 @@ function opciones() {
         Opcion = prompt("Reingrese solo el numero, si opcion 1 (Dolar a peso) u opcion 2 (peso a dolar)");
     }
 
-    if (Opcion == 1) {
+    if (Opcion == 1 || Opcion <= 0) {
         alert("Usted eligió la conversión de Dolar a Peso");
 
         opcion1 = prompt("Ingrese una cantidad de Dolares para convertir a Pesos: ");
 
+        while (opcion1 < 0 ) {
+
+            alert("Error: Ingrese un número válido (no negativo)");
+            
+            opcion1 = prompt("Ingrese una cantidad de Dolares para convertir a Pesos: ");
+        }   
+        if (opcion1 >= 0){
+
         alert("en la consola le aparecerá la conversión realizada")
 
-        console.log("La cantidad de dolares : " + opcion1 + "convertida a pesos es de: " + opcion1 * 500)
-
+        console.log("La cantidad de dolares : " + opcion1 + " convertida a pesos es de: " + opcion1 * 500)
+        } 
     } else if (Opcion == 2) {
         alert("Usted eligió la conversión de Peso a Dolar");
 
@@ -55,7 +63,7 @@ function opciones() {
 
         alert("en la consola le aparecerá la conversión realizada")
 
-        console.log("La cantidad de pesos : " + opcion2 + "convertida a dolares es de: " + opcion2 / 500)
+        console.log("La cantidad de pesos : " + opcion2 + " convertida a dolares es de: " + opcion2 / 500)
     }
 
     return { opcion1, opcion2 };
