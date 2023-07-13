@@ -26,17 +26,17 @@ function apellido(){
 let Nombre = nombre()
 let Apellido = apellido()
 console.log("Bienvenido " + Nombre + " " + Apellido )
-alert("A continuación usted debe ingresar un tipo de cambio y un monto")
+alert("A continuación usted debe ingresar un tipo de cambio y luego un monto")
 
 
 function opciones() {
     let opcion1, opcion2;
 
-    let Opcion = prompt("Opcion 1: dolar a pesos/nOpcion 2: pesos a dolar");
+    let Opcion = prompt("Opción 1 : Dolar a Pesos \nOpción 2 : Pesos a Dolar");
 
     while (Opcion != 1 && Opcion != 2) {
         console.error("error, reingrese");
-        Opcion = prompt("Reingrese solo el numero, si opcion 1 (Dolar a peso) u opcion 2 (peso a dolar)");
+        Opcion = prompt("Reingrese solo el numero, si opción | 1 | (Dolar a peso) u opción | 2 | (peso a dolar)");
     }
 
     if (Opcion == 1 || Opcion <= 0) {
@@ -52,26 +52,24 @@ function opciones() {
         }   
         if (opcion1 >= 0){
 
-        alert("en la consola le aparecerá la conversión realizada")
+        alert("Pulsando `F12` se abre la consola donde le aparecerá la conversión realizada")
 
-        console.log("La cantidad de dolares : " + opcion1 + " convertida a pesos es de: " + opcion1 * 500)
+        console.log("La cantidad de : " + opcion1 + " USD, convertida a Pesos es de: " + opcion1 * 500 + " $")
         } 
     } else if (Opcion == 2) {
         alert("Usted eligió la conversión de Peso a Dolar");
 
         opcion2 = prompt("Ingrese una cantidad de Pesos para convertir a Dolares: ");
 
-        alert("en la consola le aparecerá la conversión realizada")
+        alert("Pulsando `F12` se abre la consola donde le aparecerá la conversión realizada")
 
-        console.log("La cantidad de pesos : " + opcion2 + " convertida a dolares es de: " + opcion2 / 500)
+        console.log("La cantidad de : " + opcion2 + " $, convertida a dolares es de: " + opcion2 / 500 + " USD")
     }
 
     return { opcion1, opcion2 };
 }
 
 let opcionesSeleccionadas = opciones();
-console.log(opcionesSeleccionadas.opcion1);
-console.log(opcionesSeleccionadas.opcion2);
 
 
 
