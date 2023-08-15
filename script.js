@@ -1,142 +1,142 @@
-alert("Bienvenido al conversor de Dolar a Peso y de Peso a Dolar")
+const cuerpo = document.body
+const main = document.createElement("main")
+cuerpo.prepend(main)
 
-// Ingreso de usuario
+const divA = document.createElement("div")
+divA.innerHTML = `<div>
+<label>Nombre:</label>
+<input type="text" id="nombre" required>
+</div>
+<div>
+<label">Apellido</label>
+<input type="text" id="apellido" required>
+</div>
+<div>
+<label>Edad</label>
+<input type="number" id="edad" required>
+</div>
+<button id="botonEnviar1">Enviar</button>`
+main.appendChild(divA)
+
 class Persona {
     nombre() {
-        let nombreUsuario = prompt("Ingrese su nombre")
+        let nombreUsuario = document.getElementById("nombre").value
     
-        while (isFinite(nombreUsuario)){
-            console.error("error, reingrese")
-            nombreUsuario = prompt("reingrese el nombre, solo se admiten letras")
-        }
-        console.log(nombreUsuario)
         return nombreUsuario
     }
     
     apellido() {
-        let apellidoUsuario = prompt("Ingrese su apellido")
+        let apellidoUsuario = document.getElementById("apellido").value
     
-        while (isFinite(apellidoUsuario)){
-            console.error("error, reingrese")
-            apellidoUsuario = prompt("reingrese el nombre, solo se admiten letras")
-        }
-        console.log(apellidoUsuario)
         return apellidoUsuario
     }
 
     edad(){
-        let edadUsuario = prompt("Ingrese su edad")
+        let edadUsuario = document.getElementById("edad").value
 
-        if (edadUsuario <= 0){
-            alert("ingrese un numero mayor a 0")
-            edadUsuario = prompt("ingrese de vuelta")
-        } else{
-            alert("Gracias")
-        }
-        console.log(edadUsuario)
         return edadUsuario
+
     }
 }
 
-// dia de la semana
-function sacarDiaSemana(){
-    const dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
-    const diaHoy = new Date()
-    const dia = dias[diaHoy.getDay()]
-    return dia
-}
-function preguntarDia(){
-    const preguntaDia = prompt("Para saber el dia de la semana escribe 'si', sino, ingresar cualquier cosa ")
-
-    if (preguntaDia === "si"){
-        console.log("hoy es: " + sacarDiaSemana())
-    } else {
-        alert("seguimos con el siguiente paso")
-    }
-    
-}
-// termina la primer parte del usuario
 const persona = new Persona()
-const nombre = persona.nombre()
-const apellido = persona.apellido()
-const edad = persona.edad()
-console.log("Bienvenido " + nombre + " " + apellido )
-alert("Bienvenido " + nombre + " " + apellido )
-preguntarDia()
-alert("A continuación usted debe ingresar un tipo de cambio y un monto")
+document.getElementById("botonEnviar1").addEventListener("click", () => {
+    const nombre = persona.nombre();
+    const apellido = persona.apellido();
+    const edad = persona.edad();
+    
+    console.log("Nombre:", nombre);
+    console.log("Apellido:", apellido);
+    console.log("Edad:", edad);
+    console.log("Bienvenido al conversor de divisas", nombre, apellido)
 
+    let arrayHistorial = [];
 
-// conversor de divisa dolar-peso
-class Conversor {
-    constructor(){
-    this.opcion1
-    this.opcion2
-    this.resultado}
-
-    opciones() {
-        let dolar = 550
-
-        let opcion = prompt("Opcion 1: dolar a pesos  Opcion 2: pesos a dolar");
-    
-        while (opcion != 1 && opcion != 2) {
-            console.error("error, reingrese");
-            opcion = prompt("Reingrese solo el numero, si opcion 1 (Dolar a peso) u opcion 2 (peso a dolar)");
-        }
-    
-        if (opcion == 1) {
-            
-            alert("Usted eligió la conversión de Dolar a Peso");
-    
-            this.opcion1 = prompt("Ingrese una cantidad de Dolares para convertir a Pesos: ");
-    
-            while (isNaN(Number(this.opcion1))) {
-                console.error("error, reingrese");
-                this.opcion1 = prompt("Reingrese solo numeros");
-            }
-    
-            alert("en la consola le aparecerá la conversión realizada")
-
-            this.resultado = this.opcion1 * dolar;
-            console.log("La cantidad de dolares : " + this.opcion1 + " convertida a pesos es de: " + this.resultado.toFixed(2) + ", el día: " + sacarDiaSemana() );
-    
-    
-        } else if (opcion == 2) {
-
-            alert("Usted eligió la conversión de Peso a Dolar");
-    
-            this.opcion2 = prompt("Ingrese una cantidad de Pesos para convertir a Dolares: ");
-    
-            while(isNaN(Number(this.opcion2))) {
-                console.error("error, reingrese");
-                this.opcion1 = prompt("Reingrese solo numeros");
-            }
-    
-            alert("en la consola le aparecerá la conversión realizada")
-    
-            this.resultado = this.opcion2 / dolar;
-            console.log("La cantidad de pesos : " + this.opcion2 + " convertida a dolares es de: " + this.resultado.toFixed(2) + ", el día: " + sacarDiaSemana() );
-        }
+    const usuarioGuardado = localStorage.getItem("usuario");
+    if (usuarioGuardado) {
+        arrayHistorial = JSON.parse(usuarioGuardado);
     }
-}
 
-const conversor = new Conversor()
-conversor.opciones();
+    arrayHistorial.push({ 
+        Nombre: nombre,
+        Apellido: apellido,
+        Edad: edad,
+    });
 
-console.log('opcion1: ', conversor.opcion1);
-console.log('opcion2: ', conversor.opcion2);
+    const encontrarNombre = arrayHistorial.map((i) => i.Nombre)
+    console.log(encontrarNombre)
 
-// historial del usuario ingresado
-const arrayHistorial = [];
+    localStorage.setItem("usuario", JSON.stringify(arrayHistorial));
 
-arrayHistorial.push({ 
-    Nombre: nombre,
-    Apellido: apellido,
-    Edad: edad,
-    Resultado: conversor.resultado,
-    Dia: sacarDiaSemana()
-})
+    console.log(...arrayHistorial)
 
-console.log(arrayHistorial)
+const form = document.createElement("form");
+form.innerHTML = `
+    <div>
+        <label>Seleccione el tipo de conversión:</label>
+        <select id="tipoDeConversion">
+            <option value="1">De pesos a dolar</option>
+            <option value="2">De dolar a pesos</option>
+        </select>
+    </div>
+    <div id="conversionElegida">
+        <!-- aca se van a mostrar los campos según la opción seleccionada -->
+    </div>
+    <button type="button" id="botonEnviar2">Enviar</button>
+`;
+main.appendChild(form);
 
-const encontrarNombre = arrayHistorial.map((i) => i.Nombre)
-console.log(encontrarNombre)
+const conversionElegida = document.getElementById("conversionElegida");
+const botonEnviar2 = document.getElementById("botonEnviar2");
+const tipoDeConversion = document.getElementById("tipoDeConversion")
+
+const dolar = 700;
+
+tipoDeConversion.addEventListener("change", (event) => {
+    const opcion = event.target.value;
+
+    if (opcion === "1") {
+        conversionElegida.innerHTML = `
+            <div>
+                <label>Cantidad en Pesos:</label>
+                <input type="number" id="cantidadPesos" required>
+            </div>
+        `;
+    } else if (opcion === "2") {
+        conversionElegida.innerHTML = `
+            <div>
+                <label>Cantidad en dólares:</label>
+                <input type="number" id="cantidadDolares" required>
+            </div>
+        `;
+    }
+});
+
+botonEnviar2.addEventListener("click", () => {
+    const opcion = document.getElementById("tipoDeConversion").value;
+
+    if (opcion === "1") {
+
+        const cantidadPesos = parseFloat(document.getElementById("cantidadPesos").value);
+        const result = cantidadPesos / dolar;
+
+        const h5 = document.createElement("h5")
+        h5.innerHTML=`La cantidad en Pesos: ${cantidadPesos} convertida a dólares es de: ${result.toFixed(2)}`
+        conversionElegida.appendChild(h5)
+
+    } else if (opcion === "2") {
+
+        const cantidadDolares = parseFloat(document.getElementById("cantidadDolares").value);
+        const result = cantidadDolares * dolar;
+
+        const h5 = document.createElement("h5")
+        h5.innerHTML =`La cantidad en dólares: ${cantidadDolares} convertida a Pesos es de: ${result.toFixed(2)}`
+        conversionElegida.appendChild(h5)
+        
+    }
+});
+});
+
+
+
+
