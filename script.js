@@ -1,7 +1,9 @@
+// declaro constantes que voy a utilizar
 const cuerpo = document.body
 const main = document.createElement("main")
 cuerpo.prepend(main)
 
+// creo un elemento div y le agrego un form con innerHTML
 const divA = document.createElement("div")
 divA.innerHTML = `<div>
 <label>Nombre:</label>
@@ -18,6 +20,7 @@ divA.innerHTML = `<div>
 <button id="botonEnviar1">Enviar</button>`
 main.appendChild(divA)
 
+// esta seria la parte del "logueo" de usuario
 class Persona {
     nombre() {
         let nombreUsuario = document.getElementById("nombre").value
@@ -40,37 +43,41 @@ class Persona {
 }
 
 const persona = new Persona()
+// le agrego un evento al boton ya creado para usar los elementos de la clase persona
+
 document.getElementById("botonEnviar1").addEventListener("click", () => {
-    const nombre = persona.nombre();
-    const apellido = persona.apellido();
-    const edad = persona.edad();
+    const nombre = persona.nombre()
+    const apellido = persona.apellido()
+    const edad = persona.edad()
     
-    console.log("Nombre:", nombre);
-    console.log("Apellido:", apellido);
-    console.log("Edad:", edad);
+    console.log("Nombre:", nombre)
+    console.log("Apellido:", apellido)
+    console.log("Edad:", edad)
     console.log("Bienvenido al conversor de divisas", nombre, apellido)
 
-    let arrayHistorial = [];
+    let arrayHistorial = []
 
-    const usuarioGuardado = localStorage.getItem("usuario");
+    const usuarioGuardado = localStorage.getItem("usuario")
     if (usuarioGuardado) {
-        arrayHistorial = JSON.parse(usuarioGuardado);
+        arrayHistorial = JSON.parse(usuarioGuardado)
     }
 
     arrayHistorial.push({ 
         Nombre: nombre,
         Apellido: apellido,
         Edad: edad,
-    });
+    })
 
     const encontrarNombre = arrayHistorial.map((i) => i.Nombre)
     console.log(encontrarNombre)
 
-    localStorage.setItem("usuario", JSON.stringify(arrayHistorial));
+    localStorage.setItem("usuario", JSON.stringify(arrayHistorial))
 
     console.log(...arrayHistorial)
 
-const form = document.createElement("form");
+// cuando el primer evento esta activo, crea un form para realizar la segunda parte
+
+const form = document.createElement("form")
 form.innerHTML = `
     <div>
         <label>Seleccione el tipo de conversión:</label>
@@ -83,17 +90,19 @@ form.innerHTML = `
         <!-- aca se van a mostrar los campos según la opción seleccionada -->
     </div>
     <button type="button" id="botonEnviar2">Enviar</button>
-`;
-main.appendChild(form);
+`
+main.appendChild(form)
 
-const conversionElegida = document.getElementById("conversionElegida");
-const botonEnviar2 = document.getElementById("botonEnviar2");
+const conversionElegida = document.getElementById("conversionElegida")
+const botonEnviar2 = document.getElementById("botonEnviar2")
 const tipoDeConversion = document.getElementById("tipoDeConversion")
 
-const dolar = 700;
+const dolar = 700
+
+// le agrego un evento al boton del form para que desplace la siguiente parte
 
 tipoDeConversion.addEventListener("change", (event) => {
-    const opcion = event.target.value;
+    const opcion = event.target.value
 
     if (opcion === "1") {
         conversionElegida.innerHTML = `
@@ -101,24 +110,26 @@ tipoDeConversion.addEventListener("change", (event) => {
                 <label>Cantidad en Pesos:</label>
                 <input type="number" id="cantidadPesos" required>
             </div>
-        `;
+        `
     } else if (opcion === "2") {
         conversionElegida.innerHTML = `
             <div>
                 <label>Cantidad en dólares:</label>
                 <input type="number" id="cantidadDolares" required>
             </div>
-        `;
+        `
     }
-});
+})
+
+// agrego un tercer y ultimo evento para que realice la conversion solicitada
 
 botonEnviar2.addEventListener("click", () => {
-    const opcion = document.getElementById("tipoDeConversion").value;
+    const opcion = document.getElementById("tipoDeConversion").value
 
     if (opcion === "1") {
 
-        const cantidadPesos = parseFloat(document.getElementById("cantidadPesos").value);
-        const result = cantidadPesos / dolar;
+        const cantidadPesos = parseFloat(document.getElementById("cantidadPesos").value)
+        const result = cantidadPesos / dolar
 
         const h5 = document.createElement("h5")
         h5.innerHTML=`La cantidad en Pesos: ${cantidadPesos} convertida a dólares es de: ${result.toFixed(2)}`
@@ -126,16 +137,16 @@ botonEnviar2.addEventListener("click", () => {
 
     } else if (opcion === "2") {
 
-        const cantidadDolares = parseFloat(document.getElementById("cantidadDolares").value);
-        const result = cantidadDolares * dolar;
+        const cantidadDolares = parseFloat(document.getElementById("cantidadDolares").value)
+        const result = cantidadDolares * dolar
 
         const h5 = document.createElement("h5")
         h5.innerHTML =`La cantidad en dólares: ${cantidadDolares} convertida a Pesos es de: ${result.toFixed(2)}`
         conversionElegida.appendChild(h5)
         
     }
-});
-});
+})
+})
 
 
 
