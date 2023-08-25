@@ -38,12 +38,41 @@
     </div>
 </form>
 
+
+
         <h2 id="resultado"></h2>
     </main> -->
-    <button id="botonDia">Saber día de la semana</button>
-    <script src="script.js"></script>
+    <div class="row g-3 formulario">
+    <div class="div1" >
+        <label class="casilleros">Nombre:</label>
+        <input class="casilleros" type="text" id="nombre" required>
+        <label class="casilleros">Apellido:</label>
+        <input class="casilleros"type="text" id="apellido" required>
+        <label class="casilleros">Edad :</label>
+        <input class="casilleros" type="number" id="edad" required>
+    </div>
+        <button id="botonEnviar1" class="botones">Enviar</button>
+    <div id="divForm">
+        <!-- aca se van a mostrar los campos según la opción seleccionada -->
+    </div>
+    <div>
+        <label>Seleccione el tipo de conversión:</label>
+        <select id="tipoDeConversion">
+            <option value="1">De pesos a dolar</option>
+            <option value="2">De dolar a pesos</option>
+        </select>
+    </div>
+    <div id="conversionElegida">
+            <!-- aca se van a mostrar los campos según la opción seleccionada -->
+    </div>
+        <button type="button" id="botonEnviar2" class="botones">Enviar</button><br>
+</div>
+
+    <script src="cotizacion.js"></script>
     <script src="diaSemana.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> -->
+    <script src="eventos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>

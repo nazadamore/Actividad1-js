@@ -1,26 +1,4 @@
-// declaro constantes que voy a utilizar
-const cuerpo = document.body
-const main = document.createElement("main")
-cuerpo.prepend(main)
 
-// creo un elemento div y le agrego un form con innerHTML
-const divA = document.createElement("div")
-divA.innerHTML = `<div>
-<label>Nombre:</label>
-<input type="text" id="nombre" required>
-</div>
-<div>
-<label">Apellido</label>
-<input type="text" id="apellido" required>
-</div>
-<div>
-<label>Edad</label>
-<input type="number" id="edad" required>
-</div>
-<button id="botonEnviar1">Enviar</button>`
-main.appendChild(divA)
-
-// esta seria la parte del "logueo" de usuario
 class Persona {
     nombre() {
         let nombreUsuario = document.getElementById("nombre").value
@@ -50,6 +28,11 @@ document.getElementById("botonEnviar1").addEventListener("click", () => {
     const apellido = persona.apellido()
     const edad = persona.edad()
     
+
+    const h6 = document.createElement("h6")
+    h6.innerHTML=`Bienvenido: ${nombre} ${apellido} ya podes realizar la conversión`
+    divFormNombre.appendChild(h6)
+
     console.log("Nombre:", nombre)
     console.log("Apellido:", apellido)
     console.log("Edad:", edad)
@@ -75,23 +58,6 @@ document.getElementById("botonEnviar1").addEventListener("click", () => {
 
     console.log(...arrayHistorial)
 
-// cuando el primer evento esta activo, crea un form para realizar la segunda parte
-
-const form = document.createElement("form")
-form.innerHTML = `
-    <div>
-        <label>Seleccione el tipo de conversión:</label>
-        <select id="tipoDeConversion">
-            <option value="1">De pesos a dolar</option>
-            <option value="2">De dolar a pesos</option>
-        </select>
-    </div>
-    <div id="conversionElegida">
-        <!-- aca se van a mostrar los campos según la opción seleccionada -->
-    </div>
-    <button type="button" id="botonEnviar2">Enviar</button>
-`
-main.appendChild(form)
 
 const conversionElegida = document.getElementById("conversionElegida")
 const botonEnviar2 = document.getElementById("botonEnviar2")
@@ -122,6 +88,7 @@ tipoDeConversion.addEventListener("change", (event) => {
 })
 
 // agrego un tercer y ultimo evento para que realice la conversion solicitada
+let result
 
 botonEnviar2.addEventListener("click", () => {
     const opcion = document.getElementById("tipoDeConversion").value
@@ -129,7 +96,7 @@ botonEnviar2.addEventListener("click", () => {
     if (opcion === "1") {
 
         const cantidadPesos = parseFloat(document.getElementById("cantidadPesos").value)
-        const result = cantidadPesos / dolar
+        result = cantidadPesos / dolar
 
         const h5 = document.createElement("h5")
         h5.innerHTML=`La cantidad en Pesos: ${cantidadPesos} convertida a dólares es de: ${result.toFixed(2)}`
@@ -138,16 +105,42 @@ botonEnviar2.addEventListener("click", () => {
     } else if (opcion === "2") {
 
         const cantidadDolares = parseFloat(document.getElementById("cantidadDolares").value)
-        const result = cantidadDolares * dolar
+        result = cantidadDolares * dolar
 
         const h5 = document.createElement("h5")
         h5.innerHTML =`La cantidad en dólares: ${cantidadDolares} convertida a Pesos es de: ${result.toFixed(2)}`
         conversionElegida.appendChild(h5)
-        
     }
+    function guardarDatos(){
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                const exito = true
+                if(exito){
+                    const datos = {mensaje: "Datos guardados exitosamente, el resultado es: ", resultado: result.toFixed(2)}
+                    resolve(datos)
+                }else {
+                    const error = new Error("Error al guardar los datos")
+                    reject(error)
+                }
+            }, 1000);
+        })
+    }
+    guardarDatos()
+        .then(datos =>{
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: datos.mensaje + " " + datos.resultado,
+                showConfirmButton: false,
+                timer: 3500,
+                timerProgressBar: true
+            })
+        })
+        .catch(error => {
+            console.error(error)
+        })
+        .finally(() => {
+            console.log("fin del proceso")
+        })
+    })
 })
-})
-
-
-
-

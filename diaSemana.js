@@ -1,4 +1,9 @@
 // dia de la semana
+const botonD = document.createElement("button")
+botonD.innerText = "Dia de la semana"
+botonD.id = "botonDia"
+botonD.classList = "botones"
+main.appendChild(botonD)
 const botonDia = document.getElementById("botonDia")
     
 botonDia.addEventListener("click", preguntarDia)
