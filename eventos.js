@@ -1,4 +1,17 @@
+// Definimos el valor que va a tomar el dolar mediante una API
+let dolar
+fetch("https://api.bluelytics.com.ar/v2/latest")
+.then((res) => res.json())
+.then((data) => {
+    const dolarValue = data.blue
+    console.log('Nueva cotización', dolarValue.value_avg)
+    dolar = dolarValue.value_avg
+})
+.catch((error) => {
+    console.error("Error:", error)
+})
 
+// Creamos el ingreso del usuario
 class Persona {
     nombre() {
         let nombreUsuario = document.getElementById("nombre").value
@@ -21,12 +34,14 @@ class Persona {
 }
 
 const persona = new Persona()
-// le agrego un evento al boton ya creado para usar los elementos de la clase persona
+const nombre = persona.nombre()
+const apellido = persona.apellido()
+const edad = persona.edad()
 
-document.getElementById("botonEnviar1").addEventListener("click", () => {
-    const nombre = persona.nombre()
-    const apellido = persona.apellido()
-    const edad = persona.edad()
+// Le agrego un evento al boton ya creado para usar los elementos de la clase persona
+const boton1 = document.getElementById("botonEnviar1")
+boton1.addEventListener("click", () => {
+    
     
 
     const h6 = document.createElement("h6")
@@ -63,9 +78,8 @@ const conversionElegida = document.getElementById("conversionElegida")
 const botonEnviar2 = document.getElementById("botonEnviar2")
 const tipoDeConversion = document.getElementById("tipoDeConversion")
 
-const dolar = 700
 
-// le agrego un evento al boton del form para que desplace la siguiente parte
+// Una vez hecho el ingreso de usuario, le agrego un evento al boton del formulario para que desplace la siguiente parte
 
 tipoDeConversion.addEventListener("change", (event) => {
     const opcion = event.target.value
@@ -87,7 +101,8 @@ tipoDeConversion.addEventListener("change", (event) => {
     }
 })
 
-// agrego un tercer y ultimo evento para que realice la conversion solicitada
+// Agrego un tercer y ultimo evento para que realice la conversion solicitada
+
 let result
 
 botonEnviar2.addEventListener("click", () => {
@@ -111,6 +126,9 @@ botonEnviar2.addEventListener("click", () => {
         h5.innerHTML =`La cantidad en dólares: ${cantidadDolares} convertida a Pesos es de: ${result.toFixed(2)}`
         conversionElegida.appendChild(h5)
     }
+
+    //Agrego una funcion con una promesa + libreria para el resultado
+
     function guardarDatos(){
         return new Promise((resolve, reject) => {
             setTimeout(() => {
@@ -122,7 +140,7 @@ botonEnviar2.addEventListener("click", () => {
                     const error = new Error("Error al guardar los datos")
                     reject(error)
                 }
-            }, 1000);
+            }, 1000)
         })
     }
     guardarDatos()
@@ -132,7 +150,7 @@ botonEnviar2.addEventListener("click", () => {
                 icon: 'success',
                 title: datos.mensaje + " " + datos.resultado,
                 showConfirmButton: false,
-                timer: 3500,
+                timer: 2500,
                 timerProgressBar: true
             })
         })
