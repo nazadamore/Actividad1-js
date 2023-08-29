@@ -3,7 +3,7 @@ const cuerpo = document.body
 const main = document.createElement("main")
 cuerpo.prepend(main)
 const botonC = document.createElement("button")
-botonC.innerText = "cotización"
+botonC.innerText = "Cotización"
 botonC.id = "botonDolar"
 botonC.classList = "botones"
 main.appendChild(botonC)

@@ -1,6 +1,6 @@
 // Definimos elemtos y etiquetas
 const botonD = document.createElement("button")
-botonD.innerText = "Dia de la semana"
+botonD.innerText = "Día de hoy"
 botonD.id = "botonDia"
 botonD.classList = "botones"
 main.appendChild(botonD)
