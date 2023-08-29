@@ -34,15 +34,16 @@ class Persona {
 }
 
 const persona = new Persona()
-const nombre = persona.nombre()
-const apellido = persona.apellido()
-const edad = persona.edad()
+
 
 // Le agrego un evento al boton ya creado para usar los elementos de la clase persona
+
 const boton1 = document.getElementById("botonEnviar1")
 boton1.addEventListener("click", () => {
     
-    
+    const nombre = persona.nombre()
+    const apellido = persona.apellido()
+    const edad = persona.edad()
 
     const h6 = document.createElement("h6")
     h6.innerHTML=`Bienvenido: ${nombre} ${apellido} ya podes realizar la conversión`
@@ -77,7 +78,6 @@ boton1.addEventListener("click", () => {
 const conversionElegida = document.getElementById("conversionElegida")
 const botonEnviar2 = document.getElementById("botonEnviar2")
 const tipoDeConversion = document.getElementById("tipoDeConversion")
-
 
 // Una vez hecho el ingreso de usuario, le agrego un evento al boton del formulario para que desplace la siguiente parte
 
@@ -160,5 +160,8 @@ botonEnviar2.addEventListener("click", () => {
         .finally(() => {
             console.log("fin del proceso")
         })
+        botonEnviar2.disabled = true;
     })
+    boton1.disabled = true;
+
 })
